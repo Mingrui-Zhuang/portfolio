@@ -4,6 +4,8 @@ body {
     margin: 0 auto; /* Center the content */
     padding: 1rem; /* Add padding to ensure content doesn't touch the edges */
     box-sizing: border-box; /* Include padding */
+    background-color: #FCF7E2; /* Set the background color of the page */
+    color:#5c89b8; /* Set the text color */
 } 
 
 ul, li {
@@ -17,7 +19,7 @@ nav {
   gap: 0.5rem; /* Add spacing */
   margin-bottom: 1rem; /* Add space below the <nav> */
   padding-bottom: 0.5rem; /* Add space between the content and the bottom border */
-  border-bottom: 1px solid oklch(80% 3% 200); /* Subtle bottom border */
+  border-bottom: 1px solid #72a8da; /* Subtle bottom border */
 }
 
 nav a {
@@ -25,19 +27,19 @@ nav a {
   text-align: center; /* Center-align the text within each link */
   text-decoration: none; /* Remove underline of links */
   padding: 0.5rem; /* Add padding for better touch interaction */
-  background-color: #f0f0f0; /* Add a light background */
+  background-color: #ECDFCC; /* Add a light background */
   border-radius: 12px; /* Optional: Slightly rounded corners */
-  color: #333; /* Text color */
+  color: #658Ab1; /* Text color */
   transition: background-color 0.3s; /* Smooth hover effect */
 }
 
 nav a:hover {
-  background-color: #ddd; /* Change background color on hover */
+  background-color: #B5DBF4; /* Change background color on hover */
 }
 
 nav a.current {
-  background-color: #007acc; /* background color for the current page */
-  color: white; /* White text for contrast */
+  background-color: #0F66AD; /* background color for the current page */
+  color: #FCF7E2; /* White text for contrast */
   /* border-bottom: 0.4em solid #539fda; /* Add a bottom border to the current page */
 }
 
@@ -60,8 +62,8 @@ label {
 button {
   grid-column: 1 / -1; /* Make the button span the entire row */
   padding: 0.8em 0.5em; /* Add padding for better appearance */
-  background-color: #f0f0f0; /* Primary color */
-  color: #534b4b; /* Text color */
+  background-color: #ECDFCC; /* Primary color */
+  color: #658Ab1; /* Text color */
   border: none; /* Remove default border */
   border-radius: 4px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
@@ -69,7 +71,7 @@ button {
 }
 
 button:hover {
-  background-color: #ddd; /* Darker shade on hover */
+  background-color: #B5DBF4; /* Darker shade on hover */
 }
 
 .projects {
@@ -90,6 +92,13 @@ article h2 {
   margin: 0; /* Remove margin to avoid excessive spacing */
 }
 
+.projects img {
+  width: 100%; /* Make the image scale with its container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensures the image scales nicely within its container */
+  border-radius: 0.5em; /* Optional: Rounded corners for a polished look */
+}
+
 h1 {
   font-size: 3rem; /* Set h1 size to 300% of the body text size */
 }
@@ -100,7 +109,7 @@ h1 {
 section header h2 {
   font-size: 2rem;
   color: #2c3e50;
-  border-bottom: 2px solid #c20c0c; /* Red underline for section titles */
+  border-bottom: 2px solid #658AB1; /* Red underline for section titles */
   padding-bottom: 0.2em;
   margin-bottom: 0.6em;
   font-weight: 600;
@@ -140,10 +149,11 @@ section ul li::before {
 }
 
 /* Articles */
+
 .cv article {
   margin-bottom: 20px;
   padding-left: 20px;
-  border-left: 5px solid #c20c0c; /* Red border to the left of each article */
+  border-left: 5px solid #658AB1; /* Red border to the left of each article */
 }
 
 .cv article header h3 {
@@ -184,14 +194,5 @@ section ul li::before {
   border-radius: 50%; /* Make it circular, if desired */
   margin: 1em auto; /* Add some spacing */
   display: block; /* Center the image */
-  border: 2px solid #2c3e50; /* Add a subtle border */
-}
-
-body.cv section img.pic {
-  width: 200px; /* Adjust the width as needed */
-  height: 200px; /* Maintain aspect ratio */
-  border-radius: 50%; /* Make it circular, if desired */
-  margin: 1em auto; /* Add some spacing */
-  display: block; /* Center the image */
-  border: 2px solid #2c3e50; /* Add a subtle border */
+  border: 2px solid #658AB1; /* Add a subtle border */
 }
