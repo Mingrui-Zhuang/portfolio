@@ -1,6 +1,199 @@
-body {
-    /* Set line height to 1.5 times the font size
-         and use the OS’s UI font as the website font
-       */
-    font: 100%/1.5 system-ui;
+body { 
+    font: 100%/1.5 system-ui;/* Set line height to 1.5 times the font size and use the OS’s UI font as the website font*/
+    max-width: 100ch; /* Limit the maximum width of the content */
+    margin: 0 auto; /* Center the content */
+    padding: 1rem; /* Add padding to ensure content doesn't touch the edges */
+    box-sizing: border-box; /* Include padding */
   }
+  body content 
+
+ul, li {
+    display: contents; /* Ignore <ul> and <li> for styling */
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+  display: flex; /* Flexbox layout */
+  gap: 0.5rem; /* Add spacing */
+  margin-bottom: 1rem; /* Add space below the <nav> */
+  padding-bottom: 0.5rem; /* Add space between the content and the bottom border */
+  border-bottom: 1px solid oklch(80% 3% 200); /* Subtle bottom border */
+}
+
+nav a {
+  flex: 1; /* Make each link take up the same amount of space */
+  text-align: center; /* Center-align the text within each link */
+  text-decoration: none; /* Remove underline of links */
+  padding: 0.5rem; /* Add padding for better touch interaction */
+  background-color: #f0f0f0; /* Add a light background */
+  border-radius: 12px; /* Optional: Slightly rounded corners */
+  color: #333; /* Text color */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+nav a:hover {
+  background-color: #ddd; /* Change background color on hover */
+}
+
+nav a.current {
+  background-color: #007acc; /* background color for the current page */
+  color: white; /* White text for contrast */
+  /* border-bottom: 0.4em solid #539fda; /* Add a bottom border to the current page */
+}
+
+/* Contact form styling */
+form {
+  display: grid; /* Enable grid layout */
+  grid-template-columns: auto 1fr; /* two columns: one for labels and one for inputs */
+  column-gap: 0.7rem; /* Add space between the columns */
+  row-gap: 0.3rem; /* Add space between the rows */
+}
+
+/* Style <label> elements */
+label {
+  display: grid; /* Make each label a grid container */
+  grid-template-columns: subgrid; /* Use subgrid to match the form's grid columns */
+  grid-column: 1 / -1; /* Make labels span the entire row */
+}
+
+/* Style the <button> */
+button {
+  grid-column: 1 / -1; /* Make the button span the entire row */
+  padding: 0.8em 0.5em; /* Add padding for better appearance */
+  background-color: #f0f0f0; /* Primary color */
+  color: #534b4b; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ddd; /* Darker shade on hover */
+}
+
+.projects {
+  display: grid; /* Make .projects a grid container */
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); /* Dynamic columns */
+  gap: 1rem; /* Add spacing between grid items */
+  margin-top: 1rem; /* Add some space above the grid */
+}
+
+article {
+  display: grid; /* Grid layout for each article */
+  grid-template-rows: subgrid; /* Subgrid for rows */
+  grid-row: span 3; /* Each article span 3 rows */
+  gap: 1em; /* Add spacing inside each <article> */
+}
+
+article h2 {
+  margin: 0; /* Remove margin to avoid excessive spacing */
+}
+
+h1 {
+  font-size: 3rem; /* Set h1 size to 300% of the body text size */
+}
+
+
+
+/* Section Titles */
+section header h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  border-bottom: 2px solid #e74c3c; /* Red underline for section titles */
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Personal Information */
+section p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+section p a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+section p a:hover {
+  text-decoration: underline;
+}
+
+/* Articles (Education, Work Experience) */
+.cv article {
+  margin-bottom: 25px;
+  padding-left: 20px;
+  border-left: 5px solid #e74c3c; /* Red border to the left of each article */
+}
+
+.cv article header h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.cv article time {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.cv article ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.cv article ul li {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+/* Skills Section */
+section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+section ul li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+section ul li::before {
+  content: "✓"; /* Add check mark before each skill */
+  color: #e74c3c;
+  margin-right: 10px;
+}
+
+/* Achievements Section */
+section ul li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* Fancy Picture */
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: block;
+  border: 5px solid #030303;
+  background-image: url('image/Professor.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.picture {
+  width: 150px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Make it circular, if desired */
+  margin: 1em auto; /* Add some spacing */
+  display: block; /* Center the image */
+  border: 2px solid #2c3e50; /* Add a subtle border */
+}
