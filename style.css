@@ -4,8 +4,7 @@ body {
     margin: 0 auto; /* Center the content */
     padding: 1rem; /* Add padding to ensure content doesn't touch the edges */
     box-sizing: border-box; /* Include padding */
-  }
-  body content 
+} 
 
 ul, li {
     display: contents; /* Ignore <ul> and <li> for styling */
@@ -101,16 +100,17 @@ h1 {
 section header h2 {
   font-size: 2rem;
   color: #2c3e50;
-  border-bottom: 2px solid #e74c3c; /* Red underline for section titles */
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  border-bottom: 2px solid #c20c0c; /* Red underline for section titles */
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
   font-weight: 600;
 }
 
 /* Personal Information */
 section p {
   font-size: 1.1rem;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 section p a {
@@ -122,35 +122,6 @@ section p a:hover {
   text-decoration: underline;
 }
 
-/* Articles (Education, Work Experience) */
-.cv article {
-  margin-bottom: 25px;
-  padding-left: 20px;
-  border-left: 5px solid #e74c3c; /* Red border to the left of each article */
-}
-
-.cv article header h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.cv article time {
-  color: #7f8c8d;
-  font-style: italic;
-}
-
-.cv article ul {
-  margin-top: 10px;
-  padding-left: 20px;
-}
-
-.cv article ul li {
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-/* Skills Section */
 section ul {
   list-style: none;
   padding-left: 0;
@@ -158,40 +129,67 @@ section ul {
 
 section ul li {
   font-size: 1.1rem;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
 }
 
 section ul li::before {
-  content: "✓"; /* Add check mark before each skill */
-  color: #e74c3c;
+  content: "🌟";
   margin-right: 10px;
 }
 
-/* Achievements Section */
-section ul li {
-  font-size: 1.1rem;
+/* Articles */
+.cv article {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  border-left: 5px solid #c20c0c; /* Red border to the left of each article */
+}
+
+.cv article header h3 {
+  font-size: 1.5rem;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.cv article time {
+  color: #7f8c8d;
+  font-style: italic;
+  display: inline;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* Fancy Picture */
-.profile-picture {
-  width: 200px;
-  height: 200px;
-  background-color: #ddd;
-  border-radius: 50%;
-  margin: 20px auto;
-  display: block;
-  border: 5px solid #030303;
-  background-image: url('image/Professor.jpg');
-  background-size: cover;
-  background-position: center;
+.cv article ul {
+  margin-top: 10px;
+  padding-left: 10px;
 }
 
+.cv article ul li {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cv article p {
+  font-size: 1rem;
+  margin-bottom: 1px;
+}
+
+
 .picture {
-  width: 150px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Maintain aspect ratio */
+  border-radius: 50%; /* Make it circular, if desired */
+  margin: 1em auto; /* Add some spacing */
+  display: block; /* Center the image */
+  border: 2px solid #2c3e50; /* Add a subtle border */
+}
+
+body.cv section img.pic {
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Maintain aspect ratio */
   border-radius: 50%; /* Make it circular, if desired */
   margin: 1em auto; /* Add some spacing */
   display: block; /* Center the image */
