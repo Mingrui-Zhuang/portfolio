@@ -147,7 +147,13 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
       article.classList.add("project-item"); // Optional: Add a class for styling
 
       // Handle missing image by providing a default
-      const projectImage = project.image ? project.image : '../image/default.jpg';
+      let projectImage = project.image ? project.image : '../image/default.jpg';
+
+      // Adjust the image path if not an absolute URL
+      const ishomepage = document.documentElement.classList.contains('home');
+      if (!ishomepage && !project.image.startsWith('http')) {
+        projectImage = '../' + project.image;
+      }
 
       article.innerHTML = `
           <${headingLevel}>${project.title}</${headingLevel}>
