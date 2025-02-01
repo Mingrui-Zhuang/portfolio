@@ -98,3 +98,69 @@ themeSelector.addEventListener("change", (event) => {
   localStorage.setItem("colorScheme", selectedTheme); // Save to localStorage
   setTheme(selectedTheme);
 });
+
+// Lab 4
+// Fetch JSON data for projects
+export async function fetchJSON(url) {
+  try {
+      // Fetch the JSON file from the given URL
+      const response = await fetch(url);
+
+      // Check if the fetch request was successful
+      if (!response.ok) {
+          throw new Error(`Failed to fetch projects: ${response.statusText}`);
+      }
+
+      // Parse the JSON response
+      const data = await response.json();
+      
+      // Log the data to verify its structure
+      console.log(data);
+      
+      return data;
+  } catch (error) {
+      console.error('Error fetching or parsing JSON data:', error);
+  }
+}
+
+// Render projects in the DOM
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  // Ensure the container element is valid
+  if (!containerElement || !(containerElement instanceof HTMLElement)) {
+      console.error("Invalid container element provided.");
+      return;
+  }
+
+  // Clear existing content to avoid duplication
+  containerElement.innerHTML = '';
+
+  // Validate heading level
+  const validHeadingLevels = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  if (!validHeadingLevels.includes(headingLevel)) {
+      console.warn(`Invalid heading level "${headingLevel}", defaulting to "h2".`);
+      headingLevel = 'h2';
+  }
+
+  // Loop through each project and create an article element
+  projects.forEach(project => {
+      const article = document.createElement('article');
+      article.classList.add("project-item"); // Optional: Add a class for styling
+
+      // Handle missing image by providing a default
+      const projectImage = project.image ? project.image : '../image/default.jpg';
+
+      article.innerHTML = `
+          <${headingLevel}>${project.title}</${headingLevel}>
+          <img src="${projectImage}" alt="${project.title}" width="300">
+          <p>${project.description}</p>
+      `;
+
+      // Append the article to the container
+      containerElement.appendChild(article);
+  });
+}
+
+// Fetch GitHub user data
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}

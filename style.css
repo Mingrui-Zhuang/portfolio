@@ -218,8 +218,14 @@ section ul li::before {
   border: 2px solid var(--text-color); /* Add a subtle border */
 }
 
-/* Color Mode Switch */
+.pictures {
+  width: 200px; /* Make the image fill the container */
+  height: 200px; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image scales nicely */
+  border-radius: 12px; /* Make it circular */
+}
 
+/* Color Mode Switch */
 .color-scheme {
   position: absolute;
   display: flex;
@@ -237,4 +243,29 @@ section ul li::before {
   border-radius: 4px;
   background-color: inherit;
   color: inherit;
+}
+
+/* Profile Stats */
+#profile-stats {
+  border: 2px solid var(--text-color);
+  /* background-color: var(--button-color); */
+  padding: 0.1px 10px 10px 20px !important;
+  border-radius: 12px;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+dt {
+  grid-row: 1;
+  font-weight: bold;
+}
+
+dd {
+  grid-row: 2;
+  margin: 0;
 }
