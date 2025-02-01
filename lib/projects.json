@@ -2,19 +2,19 @@
     {
         "title": "Putting a frog in a car",
         "year": 2025,
-        "image": "../image/Frog.jpg",
+        "image": "/image/Frog.jpg",
         "description": "Work on the flexibility of the frog. Clean the frog legs and chop them at the joints. Heat a frying pan with peppers and onions under medium heat. Pour the marinated frog legs into the pot, stir-fry over high heat for a while."
     },
     {
         "title": "Tiling the Great Wall",
         "year": 2024,
-        "image": "../image/Greatwall.jpg",
+        "image": "/image/Greatwall.jpg",
         "description": "Over-modification of the Great Wall for commercial gain. Destroying the original historical features while enhancing its ability to withstand erosion and human damage. Using Chinese style tiles under the guidance of professional experts."
     },
     {
         "title": "Pre-test Pseud-Depressia",
         "year": 2024,
-        "image": "../image/Depression.jpg",
+        "image": "/image/Depression.jpg",
         "description": "Study a psychological disorder that occurs before the exam, which characterized by a series of symptoms such as irritability, anxiety, and insomnia. Incidence is found to be highest among the DATA SCIENCE students."
     },
     {
