@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+
     <!-- <nav>
         <ul>
             <li><a href="../index.html">Home</a></li>
@@ -17,9 +18,27 @@
         </ul>
     </nav> -->
     <h1 class="projects-title">Projects</h1>
+
+    <div class="container">
+        <svg id="projects-plot" class="plot" viewBox="0 -5 100 100">
+            <!-- ... -->
+        </svg>
+        <ul class="legend">
+            <!-- ... -->
+        </ul>
+    </div>
+
+    <input
+    class="searchBar"
+    type="search"
+    aria-label="Search projects"
+    placeholder="✁⁃ Search projects…"
+    />
+
     <div class="projects">
         <!-- Projects will be inserted here dynamically -->
     </div>
+
     <script src="../global.js" type="module"></script>
     <script src="projects.js" type="module"></script>
 </body>

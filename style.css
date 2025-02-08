@@ -99,12 +99,19 @@ button:hover {
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); /* Dynamic columns */
   gap: 1rem; /* Add spacing between grid items */
   margin-top: 1rem; /* Add some space above the grid */
+  margin-bottom: 1.5rem; /* Add some space below the grid */
+}
+
+/* Change font of year */
+.projects p.year {
+  font-family: "Baskerville";
+  font-variant-numeric: oldstyle-nums;
 }
 
 article {
   display: grid; /* Grid layout for each article */
   grid-template-rows: subgrid; /* Subgrid for rows */
-  grid-row: span 3; /* Each article span 3 rows */
+  grid-row: span 4; /* Each article span 3 rows */
   gap: 1em; /* Add spacing inside each <article> */
 }
 
@@ -268,4 +275,98 @@ dt {
 dd {
   grid-row: 2;
   margin: 0;
+}
+
+
+/* Container for pie chart and legend */
+.container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.container svg {
+  flex: 1;
+}
+
+.container .legend {
+  flex: 1;
+}
+
+/* Chart Legend Styles */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6em, 1fr));
+  gap: 1rem;
+  /* padding: 1rem; */
+  padding-top: 0.5rem;
+  padding-left: 1.5rem;
+  padding-bottom: 0.8rem;
+  border: 2px solid var(--text-color);
+  border-radius: 10px;
+  margin-top: 1.3rem;
+  margin-left: 0.6rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend div {
+  font-size: 1.5rem;
+  font-family: "Baskerville";
+  font-variant-numeric: oldstyle-nums;
+}
+
+.swatch {
+  width: 1em;
+  height: 1em;
+  background-color: var(--color);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Pie Chart Styles */
+#projects-plot {
+  max-width: 13em;
+  margin-left: 1.4rem;
+  /* margin-top: 1rem; */
+
+  overflow: visible;
+}
+
+#projects-plot:has(path:hover) path:not(:hover) {  /* Highlight hovered wedge and fade out others */
+  opacity: 0.5;
+}
+
+path {  /* Smooth transition for wedges */
+  transition: opacity 300ms, fill 300ms;
+  cursor: pointer; /* Indicate that wedges are clickable */
+}
+
+.wedge.selected {  
+  transform: scale(1.1);
+  transition: transform 300ms, stroke-width 300ms, stroke 300ms;
+  
+}
+
+/* Selected legend item style */
+.legend-item.selected {
+  font-weight: bold;
+}
+
+/* Search Bar */
+.searchBar {
+  width: 100%; /* Occupy the entire row */
+  padding: 0.4rem; /* Add padding for better appearance */
+  border: 2px solid var(--text-color); /* Add a border */
+  border-radius: 8px; /* Add rounded corners */
+  box-shadow: var(--hover-color); /* Add a subtle shadow */
+  margin-top: 1.2rem; /* Add some space above the search bar */
+  margin-bottom: 1rem; /* Add some space below the search bar */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }

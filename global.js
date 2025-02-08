@@ -144,10 +144,9 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   // Loop through each project and create an article element
   projects.forEach(project => {
       const article = document.createElement('article');
-      article.classList.add("project-item"); // Optional: Add a class for styling
 
       // Handle missing image by providing a default
-      let projectImage = project.image ? project.image : '../image/default.jpg';
+      let projectImage = project.image ? project.image : 'image/default.jpg';
 
       // Adjust the image path if not an absolute URL
       const ishomepage = document.documentElement.classList.contains('home');
@@ -159,6 +158,7 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
           <${headingLevel}>${project.title}</${headingLevel}>
           <img src="${projectImage}" alt="${project.title}" width="300">
           <p>${project.description}</p>
+          <p class="year"> c.${project.year}</p>
       `;
 
       // Append the article to the container
