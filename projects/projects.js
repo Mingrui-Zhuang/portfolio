@@ -94,7 +94,7 @@ function renderPieChart(projectsGiven) {
       .on('click', function() {
         // Update the selected index and filter projects
         selectedIndex = selectedIndex === idx ? -1 : idx;
-        filterAndRenderProjects();
+        filterAndRenderProjects(false); // Pass false to indicate it's not a search update
       });
   });
 
@@ -104,17 +104,17 @@ function renderPieChart(projectsGiven) {
     legend.append('div')
       .attr('class', `legend-item legend-item-${idx}`) // Add a class to each legend item
       .style('color', colors(idx))
-      .text(`${d.label}: ${d.value}`)
+      .text(`${d.label} | ${d.value}`)
       .on('click', () => {
         // Update the selected index and filter projects
         selectedIndex = selectedIndex === idx ? -1 : idx;
-        filterAndRenderProjects();
+        filterAndRenderProjects(false); // Pass false to indicate it's not a search update
       });
   });
 }
 
 // Function to filter and render projects based on the selected pie slice and search query
-function filterAndRenderProjects() {
+function filterAndRenderProjects(isSearchUpdate) {
   let filteredProjects = projects;
 
   // Filter by selected year
@@ -141,6 +141,11 @@ function filterAndRenderProjects() {
     d3.select(`.legend-item-${selectedIndex}`).classed('selected', true);
   }
 
+  // Re-render the pie chart and legend with the filtered projects only if it's a search update
+  if (isSearchUpdate) {
+    renderPieChart(filteredProjects);
+  }
+
   // Render the filtered projects
   renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
 }
@@ -155,5 +160,5 @@ searchInput.addEventListener('input', (event) => {
   searchQuery = event.target.value.toLowerCase();
 
   // Filter and render projects based on the search query and selected year
-  filterAndRenderProjects();
+  filterAndRenderProjects(true); // Pass true to indicate it's a search update
 });
