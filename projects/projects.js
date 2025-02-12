@@ -2,6 +2,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
 import { fetchJSON, renderProjects } from '../global.js';
 
 let selectedIndex = -1; // Initialize selected index to -1 (no selection)
+let selectedYearLabel = ''; // To store the label of the selected year
 let data = []; // To store the pie chart data
 let searchQuery = ''; // To store the search query
 let projects = []; // To store the fetched projects
@@ -94,7 +95,8 @@ function renderPieChart(projectsGiven) {
       .on('click', function() {
         // Update the selected index and filter projects
         selectedIndex = selectedIndex === idx ? -1 : idx;
-        filterAndRenderProjects(false); // Pass false to indicate it's not a search update
+        selectedYearLabel = selectedIndex === -1 ? '' : data[selectedIndex].label;
+        filterAndRenderProjects(selectedIndex === -1); // Filter and render projects and update the pie chart and legend if deselected
       });
   });
 
@@ -108,19 +110,22 @@ function renderPieChart(projectsGiven) {
       .on('click', () => {
         // Update the selected index and filter projects
         selectedIndex = selectedIndex === idx ? -1 : idx;
-        filterAndRenderProjects(false); // Pass false to indicate it's not a search update
+        selectedYearLabel = selectedIndex === -1 ? '' : data[selectedIndex].label;
+        filterAndRenderProjects(selectedIndex === -1); // Filter and render projects and update the pie chart and legend if deselected
       });
   });
 }
 
 // Function to filter and render projects based on the selected pie slice and search query
-function filterAndRenderProjects(isSearchUpdate) {
+function filterAndRenderProjects(updateChartAndLegend) {
   let filteredProjects = projects;
 
   // Filter by selected year
   if (selectedIndex !== -1) {
-    let selectedYear = data[selectedIndex].label;
-    filteredProjects = filteredProjects.filter((project) => project.year === selectedYear);
+    let selectedYear = data[selectedIndex]?.label;
+    if (selectedYear) {
+      filteredProjects = filteredProjects.filter((project) => project.year === selectedYear);
+    }
   }
 
   // Filter by search query
@@ -141,13 +146,40 @@ function filterAndRenderProjects(isSearchUpdate) {
     d3.select(`.legend-item-${selectedIndex}`).classed('selected', true);
   }
 
-  // Re-render the pie chart and legend with the filtered projects only if it's a search update
-  if (isSearchUpdate) {
-    renderPieChart(filteredProjects);
+  // Render the filtered projects or display a placeholder message if no projects are found
+  const projectsContainer = document.querySelector('.projects');
+  if (filteredProjects.length > 0) {
+    renderProjects(filteredProjects, projectsContainer, 'h2');
+  } else {
+    projectsContainer.innerHTML = "<p>No projects found.</p>";
   }
 
-  // Render the filtered projects
-  renderProjects(filteredProjects, document.querySelector('.projects'), 'h2');
+  // Update the pie chart and legend based on the filtered projects if required
+  if (updateChartAndLegend) {
+    updatePieChartAndLegend(filteredProjects);
+  }
+}
+
+// Function to update the pie chart and legend based on the filtered projects
+function updatePieChartAndLegend(filteredProjects) {
+  // Store the selected year label before updating the pie chart and legend
+  const previousSelectedYearLabel = selectedYearLabel;
+
+  // Re-render the pie chart and legend with the filtered projects
+  renderPieChart(filteredProjects);
+
+  // Reapply the selected year label after updating the pie chart and legend
+  if (previousSelectedYearLabel) {
+    const newSelectedIndex = data.findIndex(d => d.label === previousSelectedYearLabel);
+    if (newSelectedIndex !== -1) {
+      selectedIndex = newSelectedIndex;
+      d3.select(`.wedge:nth-child(${newSelectedIndex + 1})`).classed('selected', true);
+      d3.select(`.legend-item-${newSelectedIndex}`).classed('selected', true);
+    } else {
+      selectedYearLabel = ''; // Clear the label if the year is not found
+      selectedIndex = -1; // Clear the index if the year is not found
+    }
+  }
 }
 
 // Call this function on page load
@@ -160,5 +192,5 @@ searchInput.addEventListener('input', (event) => {
   searchQuery = event.target.value.toLowerCase();
 
   // Filter and render projects based on the search query and selected year
-  filterAndRenderProjects(true); // Pass true to indicate it's a search update
+  filterAndRenderProjects(true); // Filter and render projects and update the pie chart and legend
 });
