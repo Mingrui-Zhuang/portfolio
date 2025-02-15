@@ -371,7 +371,8 @@ path {  /* Smooth transition for wedges */
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
-/* Stats Section */
+/* Lab 6 */
+/* Stats Section for meta*/
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
@@ -390,4 +391,105 @@ path {  /* Smooth transition for wedges */
   /* margin-top: 0rem; */
   margin-bottom: 0.6rem;
   text-align: center;
+}
+
+/* Table Styles */
+.gridlines line {
+  stroke: lightgray;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+
+/* Tooltip Styles */
+dl.info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 0.2rem;
+  padding: 1rem;
+  background-color: var(--button-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  transition-duration: 400ms;
+  transition-property: opacity, visibility;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+[data-theme="dark"] dl.info {
+  box-shadow: 0 4px 8px rgba(243, 235, 154, 0.5); /* Dark mode shadow */
+}
+
+dl.info[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+dl.info dt {
+  font-weight: bold;
+  color: var(--press-color);
+}
+
+dl.info dd {
+  margin: 0;
+  color: var(--press-color);
+}
+
+/* Circle Hover Styles */
+circle {
+  fill: var(--press-color);
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+}
+
+/* Gridlines Styles */
+.gridlines line {
+  stroke: lightgray;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+/* Brush Selection Styles */
+@keyframes marching-ants {
+  to {
+    stroke-dashoffset: -8; /* 5 + 3 */
+  }
+}
+
+.selection {
+  fill-opacity: 0.1;
+  stroke: black;
+  stroke-opacity: 0.7;
+  stroke-dasharray: 5 3;
+  animation: marching-ants 2s linear infinite;
+}
+
+/* Selected Dots Styles */
+circle.selected {
+  fill: #fa6262;
+}
+
+/* Language Breakdown Styles */
+#language-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  padding-left: 2rem;
+  padding-right: 2rem;
+  text-align: center; /* Center the text */
+}
+
+#language-breakdown dt {
+  font-weight: bold;
+}
+
+#language-breakdown dd {
+  margin: 0;
 }
