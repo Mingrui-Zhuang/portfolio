@@ -370,3 +370,24 @@ path {  /* Smooth transition for wedges */
   margin-bottom: 1rem; /* Add some space below the search bar */
   box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
+
+/* Stats Section */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  padding: 1rem;
+  border: 2px solid var(--text-color);
+  border-radius: 12px;
+}
+
+.stats dt {
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.stats dd {
+  /* margin-top: 0rem; */
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
