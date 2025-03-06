@@ -14,6 +14,13 @@
       <!-- Placeholder for displaying data -->
     <div id="stats"></div>
 
+
+    <div id="time-filter">
+        <label for="timeSlider">Show commits until:</label>
+        <input type="range" id="timeSlider" min="0" max="100" value="100">
+        <time id="selectedTime"></time>
+    </div>
+
     <!-- Scatterplot title and container -->
     <h2>Commits by time of day</h2>
     <div id="chart"></div>
@@ -44,7 +51,8 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <!-- Import your main.js file -->
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script> -->
+    <script type="module" src="main copy.js"></script>
     <script type="module" src="../global.js"></script>
   
 </body>

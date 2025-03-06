@@ -493,3 +493,36 @@ circle.selected {
 #language-breakdown dd {
   margin: 0;
 }
+
+/* Slider */
+#time-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#time-filter label {
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+#timeSlider {
+  flex: 1;
+  margin-left: 10px;
+}
+
+#selectedTime {
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+
+circle {
+  @starting-style {
+    r: 0;
+  }
+
+  transition: all 200ms, r calc(var(--r) * 30ms);
+}
+
