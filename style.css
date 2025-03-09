@@ -5,6 +5,7 @@
   --hover-color: #b5dbf4;
   --keyword-color: #8dacd8;
   --text-color: #658AB1;
+  --link-color: #d3b59d;
   --press-color: #0F66AD;
 }
 
@@ -20,6 +21,7 @@
   --hover-color: #85B184;
   --keyword-color: #e19867;
   --text-color: #E2EDB8;
+  --link-color: #F9D2E4;
   --press-color: #b8d0ad;
 }
 
@@ -155,7 +157,7 @@ section p {
 }
 
 section p a {
-  color: #1abc9c;
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -641,7 +643,7 @@ small {
 }
 
 #items-container div a {
-  color: #007bff;
+  color: var(--link-color);
   text-decoration: none;
 }
 
