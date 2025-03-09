@@ -8,6 +8,14 @@ let commitProgress = 100;
 let timeScale;
 let filteredCommits = [];
 
+let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
+
+let ITEM_HEIGHT = 100; // Feel free to change
+let FILE_ITEM_HEIGHT = 150; // Feel free to change
+let VISIBLE_COUNT = 10; // Feel free to change as well
+let NUM_ITEMS;
+let totalHeight;
+
 async function loadData() {
   data = await d3.csv('loc.csv', (row) => ({
     ...row,
@@ -18,13 +26,23 @@ async function loadData() {
     datetime: new Date(row.datetime),
   }));
 
-  displayStats();
+  // Filter the wrong commit
+  data = data.filter(d => d.commit !== 'de9276e7');
+
   processCommits();
 
-  // Initialize time scale
   timeScale = d3.scaleTime([d3.min(commits, d => d.datetime), d3.max(commits, d => d.datetime)], [0, 100]);
-  updateTimeDisplay();
+  // updateTimeDisplay();
+  displayStats(commits); // Pass the initial commits to displayStats
   updateScatterplot(commits);
+
+  // Set the height of the spacer element
+  const spacer = d3.select('#spacer');
+  spacer.style('height', `${totalHeight}px`);
+
+  // Render the initial items
+  renderItems(0);
+  renderFileItems(0);
 }
 
 function processCommits() {
@@ -54,11 +72,16 @@ function processCommits() {
 
       return ret;
     });
+
+  commits.sort((a, b) => a.datetime - b.datetime);
+
+  NUM_ITEMS = commits.length;
+  totalHeight = (NUM_ITEMS - 1) * ITEM_HEIGHT;
 }
 
-function displayStats() {
-  // Process commits first
-  processCommits();
+function displayStats(filteredData) {
+  // Clear the existing stats
+  d3.select('#stats').html('');
 
   // Add the title above the dl element
   d3.select('#stats').append('h2').text('Summary');
@@ -68,31 +91,32 @@ function displayStats() {
 
   // Add total commits
   dl.append('dt').text('Total Commits');
-  dl.append('dd').text(commits.length);
+  dl.append('dd').text(filteredData.length);
 
   // Add total LOC
+  const totalLOC = filteredData.reduce((sum, commit) => sum + commit.totalLines, 0);
   dl.append('dt').html('Total LOC');
-  dl.append('dd').text(data.length);
+  dl.append('dd').text(totalLOC);
 
   // Add more stats as needed...
   // Number of files in the codebase
-  const numFiles = d3.rollups(data, (v) => v.length, (d) => d.file).length;
+  const numFiles = d3.rollups(filteredData.flatMap(commit => commit.lines), (v) => v.length, (d) => d.file).length;
   dl.append('dt').text('Number of Files');
   dl.append('dd').text(numFiles);
 
   // Maximum file length (in lines)
-  const maxFileLength = d3.max(data, (d) => d.length);
+  const maxFileLength = d3.max(filteredData.flatMap(commit => commit.lines), (d) => d.length);
   dl.append('dt').text('Max File Length');
   dl.append('dd').text(maxFileLength);
 
   // Longest line length
-  const longestLineLength = d3.max(data, (d) => d.line);
+  const longestLineLength = d3.max(filteredData.flatMap(commit => commit.lines), (d) => d.line);
   dl.append('dt').text('Longest Line Length');
   dl.append('dd').text(longestLineLength);
 
   // Day of the week that most work is done
   const workByDay = d3.rollups(
-    data,
+    filteredData,
     (v) => v.length,
     (d) => new Date(d.datetime).toLocaleString('en', { weekday: 'long' })
   );
@@ -178,6 +202,7 @@ function updateScatterplot(filteredCommits) {
     .attr('cy', (d) => yScale(d.hourFrac))
     .attr('r', (d) => rScale(d.totalLines))
     .style('fill-opacity', 0.7)
+    .style('fill', (d) => fileTypeColors(d.type))
     .style('--r', (d) => rScale(d.totalLines))
     .on('mouseenter', function (event, d) {
       d3.select(event.currentTarget)
@@ -209,6 +234,8 @@ function updateScatterplot(filteredCommits) {
 
   // Raise dots and everything after overlay
   svg.selectAll('.dots, .overlay ~ *').raise();
+
+  // updateFileVisualization();
 }
 
 function brushed(event) {
@@ -246,25 +273,26 @@ function updateSelectionCount() {
 }
 
 //Update the scatterplot with filtered commits
-function updateTimeDisplay() {
-  d3.select('#timeSlider').on('input', updateTimeDisplay);
+// function updateTimeDisplay() {
+//   d3.select('#timeSlider').on('input', updateTimeDisplay);
 
-  commitProgress = Number(timeSlider.value);
-  let commitMaxTime = timeScale.invert(commitProgress);
-  d3.select('#selectedTime').text(commitMaxTime.toLocaleString('en', {
-    dateStyle: 'long',
-    timeStyle: 'short',
-  }));
+//   commitProgress = Number(timeSlider.value);
+//   let commitMaxTime = timeScale.invert(commitProgress);
+//   d3.select('#selectedTime').text(commitMaxTime.toLocaleString('en', {
+//     dateStyle: 'long',
+//     timeStyle: 'short',
+//   }));
   
-  filterCommitsByTime();
-  updateScatterplot(filteredCommits);
-}
+//   filterCommitsByTime();
+//   updateScatterplot(filteredCommits);
+//   displayStats(filteredCommits);
+// }
 
 // Filter commits by time
-function filterCommitsByTime() {
-  const commitMaxTime = timeScale.invert(commitProgress);
-  filteredCommits = commits.filter(d => d.datetime <= commitMaxTime);
-}
+// function filterCommitsByTime() {
+//   const commitMaxTime = timeScale.invert(commitProgress);
+//   filteredCommits = commits.filter(d => d.datetime <= commitMaxTime);
+// }
 
 function updateLanguageBreakdown() {
   const container = document.getElementById('language-breakdown');
@@ -302,7 +330,6 @@ function updateLanguageBreakdown() {
   return breakdown;
 }
 
-
 function updateTooltipContent(commit) {
   const link = document.getElementById('commit-link');
   const date = document.getElementById('commit-date');
@@ -335,5 +362,137 @@ function updateTooltipPosition(event) {
   tooltip.style.top = `${event.clientY}px`;
 }
 
-// Call the loadData function to test it out
+// Call the loadData function
 loadData();
+
+// Add the scrolling chart
+const scrollContainer = d3.select('#scroll-container');
+const itemsContainer = d3.select('#items-container');
+
+scrollContainer.on('scroll', () => {
+  const scrollTop = scrollContainer.property('scrollTop');
+  let startIndex = Math.floor(scrollTop / ITEM_HEIGHT);
+  startIndex = Math.max(0, Math.min(startIndex, commits.length - VISIBLE_COUNT));
+  renderItems(startIndex);
+});
+
+function renderItems(startIndex) {
+  const endIndex = Math.min(startIndex + VISIBLE_COUNT, commits.length);
+  let newCommitSlice = commits.slice(0, endIndex); // Include all commits up to the current end index
+
+  // Update the scatterplot with the new slice of commits
+  updateScatterplot(newCommitSlice);
+
+  // Re-bind the commit data to the container and represent each using a div
+  const items = itemsContainer.selectAll('div')
+                .data(commits.slice(startIndex, endIndex), d => d.id); // Only update the visible items
+
+  // Remove old items
+  items.exit().remove();
+
+  // Add new items
+  const enterItems = items.enter()
+                .append('div')
+                .html(d => `
+                  <p>
+                    On ${d.datetime.toLocaleString("en", {dateStyle: "full", timeStyle: "short"})}, I made
+                    <a href="${d.url}" target="_blank">
+                      ${startIndex > 0 ? 'another commit.' : 'my first commit.'}
+                    </a> I edited ${d.totalLines} lines across ${d3.rollups(d.lines, D => D.length, d => d.file).length} files.
+                  </p>
+                `)
+                .style('position', 'absolute')
+                .style('top', (_, idx) => `${(startIndex + idx) * ITEM_HEIGHT}px`);
+
+  // Update existing items
+  items.merge(enterItems)
+       .style('top', (_, idx) => `${(startIndex + idx) * ITEM_HEIGHT}px`);
+}
+
+
+
+
+// Add the scrolling files
+const fileScrollContainer = d3.select('#file-scroll-container');
+const fileItemsContainer = d3.select('#file-items-container');
+
+fileScrollContainer.on('scroll', () => {
+  const scrollTop = fileScrollContainer.property('scrollTop');
+  let startIndex = Math.floor(scrollTop / FILE_ITEM_HEIGHT);
+  startIndex = Math.max(0, Math.min(startIndex, commits.length - VISIBLE_COUNT));
+  renderFileItems(startIndex);
+});
+
+function renderFileItems(startIndex) {
+  const endIndex = Math.min(startIndex + VISIBLE_COUNT, commits.length);
+  let newCommitSlice = commits.slice(startIndex, endIndex); // Include only the visible commits
+
+  // Call updateFileVisualization to display dots in the files container
+  updateFileVisualization(newCommitSlice);
+
+  let lines = newCommitSlice.flatMap((d) => d.lines);
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    });
+
+  // Sort files by the datetime of the first line
+
+  // Re-bind the commit data to the container and represent each using a div
+  const items = fileItemsContainer.selectAll('div')
+  .data(newCommitSlice, d => d.id);
+
+  // Remove old items
+  items.exit().remove();
+
+  // Add new items
+  const enterItems = items.enter()
+                .append('div')
+                .html(d => {
+                  const fileNames = [...new Set(d.lines.map(line => line.file))].join(', ');
+                  return `
+                    <p>
+                      On ${new Date(d.lines[0].datetime).toLocaleString("en", {dateStyle: "full", timeStyle: "short"})}, I edited ${d.lines.length} lines of code in the file(s) named <code>${fileNames}</code>.
+                      The file types include ${[...new Set(d.lines.map(line => line.type))].join(', ')}.
+                    </p>
+                  `;
+                })
+                .style('position', 'absolute')
+                .style('top', (_, idx) => `${(startIndex + idx) * FILE_ITEM_HEIGHT}px`);
+
+  // Update existing items
+  items.merge(enterItems)
+       .style('top', (_, idx) => `${(startIndex + idx) * FILE_ITEM_HEIGHT}px`);
+}
+
+function updateFileVisualization(newCommitSlice) {
+  let lines = newCommitSlice.flatMap((d) => d.lines);
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    });
+
+  // Sort files by the number of lines
+  files = d3.sort(files, (d) => -d.lines.length);
+
+  d3.select('.files').selectAll('div').remove();
+
+  let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
+
+  filesContainer.append('dt')
+    .html(d => `<code>${d.name}</code><small> ${d.lines.length} lines</small>`);
+
+  filesContainer.append('dd')
+    .selectAll('div')
+    .data(d => d.lines)
+    .enter()
+    .append('div')
+    .attr('class', 'line')
+    .style('background', d => fileTypeColors(d.type));
+
+  document.querySelectorAll('.files dt code').forEach(code => {
+    code.innerHTML = code.textContent.replace(/\//g, '/<wbr>');
+  });
+}

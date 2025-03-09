@@ -8,6 +8,11 @@
   --press-color: #0F66AD;
 }
 
+/* Wider page */
+:global(body) {
+  max-width: min(160ch, 90vw);
+}
+
 /* Dark mode */
 [data-theme="dark"] {
   --background-color: #1D2D2C;
@@ -258,6 +263,7 @@ section ul li::before {
   /* background-color: var(--button-color); */
   padding: 0.1px 10px 10px 20px !important;
   border-radius: 12px;
+  margin-bottom: 50px;
 }
 
 dl {
@@ -474,13 +480,14 @@ circle:hover {
 
 /* Selected Dots Styles */
 circle.selected {
-  fill: #fa6262;
+  fill: #fa6262 !important;
 }
 
 /* Language Breakdown Styles */
 #language-breakdown {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  padding-top: 0.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
   text-align: center; /* Center the text */
@@ -495,7 +502,7 @@ circle.selected {
 }
 
 /* Slider */
-#time-filter {
+/* #time-filter {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -517,12 +524,190 @@ circle.selected {
   width: 100%;
   text-align: right;
 }
+ */
 
 circle {
   @starting-style {
-    r: 0;
+    r: 3;
   }
 
   transition: all 200ms, r calc(var(--r) * 30ms);
 }
 
+
+/* Meta 7 */
+.files > div {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 150px 3fr;
+  text-align: left;
+  align-items: start;
+}
+
+.files dt { 
+  grid-column: 1;
+}
+
+small {
+  display: block;
+  color: var(--keyword-color);
+  font-size: 0.7em;
+}
+
+.files dd {
+  grid-column: 2;
+  grid-row: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  align-content: start;
+  gap: 0.15em;
+  padding-top: 0.6em;
+  margin-left: 0.3em;
+  background-color: inherit;
+}
+
+.line {
+  display: flex;
+  width: 0.5em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+/* Scrollytelling */
+#scrollytelling {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 0.6fr 1fr;
+  margin-bottom: 30px;
+}
+
+#scroll-container {
+  grid-column: 1;
+  position: relative;
+  width: 95%;
+  height: 400px;
+  overflow-y: scroll;
+  /* border: 1px solid var(--button-color); */
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+#chart {
+  margin-top: 1rem;
+}
+
+#chart-container h2 {
+  padding-left: 20px;
+  margin: 0;
+  font-size: 30px;
+}
+
+#spacer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: none; /* transparent */
+  pointer-events: none;
+}
+
+#items-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.item {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Text in container */
+#items-container div {
+  padding: 10px;
+  /* border-top: var(--button-color); */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] #items-container div {
+  box-shadow: 0 -2px 4px rgba(233, 253, 179, 0.2);
+}
+
+#items-container div p {
+  margin: 0;
+  font-size: 14px;
+}
+
+#items-container div a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+#items-container div a:hover {
+  text-decoration: underline;
+}
+
+
+/* Scrollytelling for file sizes visualization */
+#file-scrollytelling {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr;
+  margin-top: 50px;
+  gap: 15px;
+}
+
+#file-scroll-container {
+  grid-column: 2;
+  position: relative;
+  width: 95%;
+  height: 450px;
+  overflow-y: scroll;
+  /* border: 1px solid var(--button-color); */
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+#file-chart-container h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+#file-spacer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: none; /* transparent */
+  pointer-events: none;
+}
+
+#file-items-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.file-item {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Text in container */
+#file-items-container div {
+  padding: 10px;
+  /* border-top: var(--button-color); */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+[data-theme="dark"] #file-items-container div {
+  box-shadow: 0 -2px 4px rgba(233, 253, 179, 0.2);
+}
+
+#file-items-container div p {
+  margin: 0;
+  font-size: 14px;
+}
