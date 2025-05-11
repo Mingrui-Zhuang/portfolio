@@ -17,7 +17,6 @@ let NUM_ITEMS;
 let totalHeight;
 
 async function loadData() {
-<<<<<<< Updated upstream
   data = await d3.csv('loc.csv', (row) => ({
     ...row,
     line: Number(row.line),
@@ -44,10 +43,8 @@ async function loadData() {
   // Render the initial items
   renderItems(0);
   renderFileItems(0);
-=======
   data = await d3.csv('loc.csv');
   console.log(data);
->>>>>>> Stashed changes
 }
 
 function processCommits() {
@@ -380,7 +377,6 @@ scrollContainer.on('scroll', () => {
   startIndex = Math.max(0, Math.min(startIndex, commits.length - VISIBLE_COUNT));
   renderItems(startIndex);
 });
-<<<<<<< Updated upstream
 
 function renderItems(startIndex) {
   const endIndex = Math.min(startIndex + VISIBLE_COUNT, commits.length);
@@ -502,5 +498,3 @@ function updateFileVisualization(newCommitSlice) {
     code.innerHTML = code.textContent.replace(/\//g, '/<wbr>');
   });
 }
-=======
->>>>>>> Stashed changes

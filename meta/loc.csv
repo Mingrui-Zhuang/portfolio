@@ -1,5 +1,4 @@
 file,line,type,commit,author,date,time,timezone,datetime,depth,length
-<<<<<<< Updated upstream
 style.css,1,css,f39e5a23,Mingrui-Zhuang,2025-01-24,16:23:25,-08:00,2025-01-24T16:23:25-08:00,0,6
 style.css,2,css,f39e5a23,Mingrui-Zhuang,2025-01-24,16:23:25,-08:00,2025-01-24T16:23:25-08:00,0,70
 style.css,3,css,f39e5a23,Mingrui-Zhuang,2025-01-24,16:23:25,-08:00,2025-01-24T16:23:25-08:00,0,27
@@ -717,7 +716,6 @@ style.css,714,css,cf3aa1d3,Mingrui-Zhuang,2025-03-09,01:07:39,-08:00,2025-03-09T
 style.css,715,css,cf3aa1d3,Mingrui-Zhuang,2025-03-09,01:07:39,-08:00,2025-03-09T01:07:39-08:00,0,0
 index.js,1,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,0,55
 index.js,2,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,0,45
-=======
 style.css,1,css,f39e5a23,Mingrui-Zhuang,2025-01-24,16:23:25,-08:00,2025-01-24T16:23:25-08:00,0,5
 style.css,2,css,f39e5a23,Mingrui-Zhuang,2025-01-24,16:23:25,-08:00,2025-01-24T16:23:25-08:00,1,69
 style.css,3,css,f39e5a23,Mingrui-Zhuang,2025-01-24,16:23:25,-08:00,2025-01-24T16:23:25-08:00,1,26
@@ -1092,7 +1090,6 @@ style.css,371,css,51b3ff3a,Mingrui-Zhuang,2025-02-08,02:52:06,-08:00,2025-02-08T
 style.css,372,css,619ed79b,Mingrui-Zhuang,2025-01-17,16:46:30,-08:00,2025-01-17T16:46:30-08:00,0,0
 index.js,1,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,0,54
 index.js,2,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,0,44
->>>>>>> Stashed changes
 index.js,3,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,0,0
 index.js,4,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,0,35
 index.js,5,js,a50ffcfe,Mingrui-Zhuang,2025-01-31,23:10:28,-08:00,2025-01-31T23:10:28-08:00,2,3
